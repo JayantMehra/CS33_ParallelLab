@@ -55,7 +55,8 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 	double postScale = pow(nu / lambda, (double)(3 * stepCount));
 
 
-	#pragma omp parallel {
+	#pragma omp parallel
+	{
 	for(step = 0; step < stepCount; step++)
 	{
 
@@ -68,6 +69,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
+		#pragma omp single
 		for(x = 1; x < xMax; x++)
 		{
 
@@ -80,7 +82,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
-
+		#pragma omp for private (z)
 		for(y = 0; y < yMax; y++)
 		{
 			for(z = 0; z < zMax; z++)
@@ -89,6 +91,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
+		#pragma omp single
 		for(x = xMax - 2; x >= 0; x--)
 		{
 
@@ -101,7 +104,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
-
+		#pragma omp for private (z)
 		for(x = 0; x < xMax; x++)
 		{
 			for(z = 0; z < zMax; z++)
@@ -122,7 +125,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 		*/
-
+		#pragma omp single
 		for(y = 1; y < yMax; y++)
 		{
 
@@ -135,7 +138,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
-
+		#pragma omp for private (z)
 		for(x = 0; x < xMax; x++)
 		{
 			for(z = 0; z < zMax; z++)
@@ -144,6 +147,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
+		#pragma omp single
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = yMax - 2; y >= 0; y--)
@@ -155,6 +159,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
+		#pragma omp for private (y)
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
@@ -163,6 +168,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
+		#pragma omp single
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
@@ -174,6 +180,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
+		#pragma omp for private (y)
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
@@ -182,6 +189,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 
+		#pragma omp single
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
