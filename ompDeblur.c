@@ -54,10 +54,10 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 	double boundryScale = 1.0 / (1.0 - nu);
 	double postScale = pow(nu / lambda, (double)(3 * stepCount));
 
-	#pragma omp parallel
+	
 	for(step = 0; step < stepCount; step++)
 	{
-		#pragma omp for
+
 		for(y = 0; y < yMax; y++)
 		{
 			for(z = 0; z < zMax; z++)
@@ -65,7 +65,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				u[Index(0, y, z)] *= boundryScale;
 			}
 		}
-		#pragma omp for
+
 		for(x = 1; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
@@ -76,7 +76,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				}
 			}
 		}
-		#pragma omp for
+
 		for(y = 0; y < yMax; y++)
 		{
 			for(z = 0; z < zMax; z++)
@@ -84,7 +84,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				u[Index(0, y, z)] *= boundryScale;
 			}
 		}
-		#pragma omp for
+
 		for(x = xMax - 2; x >= 0; x--)
 		{
 			for(y = 0; y < yMax; y++)
@@ -95,7 +95,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				}
 			}
 		}
-		#pragma omp for
+
 		for(x = 0; x < xMax; x++)
 		{
 			for(z = 0; z < zMax; z++)
@@ -103,7 +103,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				u[Index(x, 0, z)] *= boundryScale;
 			}
 		}
-		#pragma omp for
+
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 1; y < yMax; y++)
@@ -114,7 +114,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				}
 			}
 		}
-		#pragma omp for
+
 		for(x = 0; x < xMax; x++)
 		{
 			for(z = 0; z < zMax; z++)
@@ -122,7 +122,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				u[Index(x, yMax - 1, z)] *= boundryScale;
 			}
 		}
-		#pragma omp for
+
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = yMax - 2; y >= 0; y--)
@@ -133,7 +133,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				}
 			}
 		}
-		#pragma omp for
+
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
@@ -141,7 +141,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				u[Index(x, y, 0)] *= boundryScale;
 			}
 		}
-		#pragma omp for
+
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
@@ -152,7 +152,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				}
 			}
 		}
-		#pragma omp for
+
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
@@ -160,7 +160,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 				u[Index(x, y, zMax - 1)] *= boundryScale;
 			}
 		}
-		#pragma omp for
+
 		for(x = 0; x < xMax; x++)
 		{
 			for(y = 0; y < yMax; y++)
@@ -172,7 +172,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 			}
 		}
 	}
-	
+
 	for(x = 0; x < xMax; x++)
 	{
 		for(y = 0; y < yMax; y++)
