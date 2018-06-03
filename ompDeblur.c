@@ -54,8 +54,10 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 	double boundryScale = 1.0 / (1.0 - nu);
 	double postScale = pow(nu / lambda, (double)(3 * stepCount));
 
+
 	for(step = 0; step < stepCount; step++)
 	{
+		#pragma omp parallel for
 		for(y = 0; y < yMax; y++)
 		{
 			for(z = 0; z < zMax; z++)
@@ -170,6 +172,7 @@ void OMP_GaussianBlur(double *u, double Ksigma, int stepCount)
 		}
 	}
 }
+
 void OMP_Deblur(double* u, const double* f, int maxIterations, double dt, double gamma, double sigma, double Ksigma)
 {
 	double epsilon = 1.0e-7;
@@ -189,7 +192,7 @@ void OMP_Deblur(double* u, const double* f, int maxIterations, double dt, double
 			{
 				for(z = 1; z < zMax - 1; z++)
 				{
-					int temp = Index(x, y, z);
+					int temp = Index(x, y, z);									// First optimization attempt
 					g[Index(x, y, z)] = 1.0 / sqrt(epsilon +
 						SQR(u[temp] - u[Index(x + 1, y, z)]) +
 						SQR(u[temp] - u[Index(x - 1, y, z)]) +
